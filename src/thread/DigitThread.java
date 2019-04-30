@@ -1,7 +1,7 @@
 package thread;
 
 public class DigitThread extends Thread {
-//TETSETSETSTE
+	//TEST
 	@Override
 	public void run() {
 		for(int i=0;i<10;i++) {
