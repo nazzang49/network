@@ -1,14 +1,13 @@
 package http;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 //서버(선 서버 open, 후 클라이언트 in)
 public class SimpleHttpServer {
-	private static final int PORT = 8088;
+	private static final int PORT = 8089;
 
 	public static void main(String[] args) {
 
