@@ -16,15 +16,8 @@ public class RequestHandler extends Thread {
 	
 	//static 영역
 	static{
-		try {
-			//class path를 절대경로로 바꾸는 작업
-			documentRoot = new File(RequestHandler.class.getProtectionDomain()
-					.getCodeSource().getLocation().toURI()).getPath();
-			documentRoot+="/webapp";
-			System.out.println("[documentRoot] "+documentRoot);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		//class path를 절대경로로 바꾸는 작업
+		documentRoot = RequestHandler.class.getClass().getResource("/webapp").getPath();
 	}
 	
 	private Socket socket;
