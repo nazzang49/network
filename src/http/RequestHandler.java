@@ -7,14 +7,29 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 
 //클라이언트
 public class RequestHandler extends Thread {
-	private static final String DOCUMENT_ROOT = "./webapp";
+	private static String documentRoot = "";
+	
+	//static 영역
+	static{
+		try {
+			//class path를 절대경로로 바꾸는 작업
+			documentRoot = new File(RequestHandler.class.getProtectionDomain()
+					.getCodeSource().getLocation().toURI()).getPath();
+			documentRoot+="/webapp";
+			System.out.println("[documentRoot] "+documentRoot);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Socket socket;
 	
-	public RequestHandler( Socket socket ) {
+	public RequestHandler(Socket socket) {
 		this.socket = socket;
 	}
 	
@@ -56,7 +71,7 @@ public class RequestHandler extends Thread {
 			else {
 				response400Error(os, tokens[2]);
 				String url = "/error/400.html";
-				File file = new File(DOCUMENT_ROOT+url);
+				File file = new File(documentRoot+url);
 				byte [] body = Files.readAllBytes(file.toPath());
 				os.write(body);
 				return;
@@ -82,13 +97,13 @@ public class RequestHandler extends Thread {
 		if("/".equals(url)) {
 			url = "/index.html";
 		}
-		File file = new File(DOCUMENT_ROOT+url);
+		File file = new File(documentRoot+url);
 		
 		//페이지가 없는 경우(404)
 		if(!file.exists()) {
 			response404Error(os,protocol);
 			url = "/error/404.html";
-			file = new File(DOCUMENT_ROOT+url);
+			file = new File(documentRoot+url);
 			byte [] body = Files.readAllBytes(file.toPath());
 			os.write(body);
 			return;
