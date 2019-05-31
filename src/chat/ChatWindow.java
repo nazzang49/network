@@ -135,6 +135,7 @@ public class ChatWindow {
 			try {
 				BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream(), "utf-8"));
 				while(true) {
+					//TextField 영역에서 키보드 입력
 					String msg = br.readLine();
 					//개행설정
 					textArea.append(msg);

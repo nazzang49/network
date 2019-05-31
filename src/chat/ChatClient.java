@@ -59,7 +59,7 @@ public class ChatClient {
 				consoleLog("방에 입장하셨습니다.");
 				//GUI 창 오픈
 				new ChatWindow(name, client).show();
-				//입장 알림 메시지 서버에 전송
+				//입장 알림 메시지 서버에 전송(명령어+내용)
 				PrintWriter pw = new PrintWriter(new OutputStreamWriter(client.getOutputStream(),"utf-8"),true);
 				String data = "join:"+name+"\r\n";
 				pw.println(data);
